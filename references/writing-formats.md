@@ -2,6 +2,17 @@
 
 这些规则来自用户公开可用任务与本机备忘录文章样本的格式提炼，不包含原始备忘录正文。
 
+## 目录
+
+- [通用笔记格式](#通用笔记格式)
+- [公众号版](#公众号版)
+- [GitHub 版](#github-版)
+- [X 推文版](#x-推文版)
+- [图片文字版](#图片文字版)
+- [混合素材版](#混合素材版)
+- [匿名虚构短例](#匿名虚构短例)
+- [避免的写法](#避免的写法)
+
 ## 通用笔记格式
 
 标题通常直接给出对象和判断，例如“项目名：它解决了什么问题”或“事件名：从现象到趋势”。正文开头不要铺垫太久，第一段就说明素材是什么、它为什么值得记录。后面用背景、机制、数据、案例、用法或影响逐层展开。
@@ -122,6 +133,122 @@ GitHub：https://github.com/owner/repo
 - 图片里只有金句时，扩展为观点笔记；图片里有流程图时，写出流程关系。
 - PPT 或架构图要先说明图在表达什么，再解释节点关系。
 - 不能因为图片里出现项目名就假设项目功能，必须有文字或外部来源支撑。
+
+## 混合素材版
+
+适用：同一个任务里同时出现公众号、GitHub、X/Twitter、截图 OCR、博客、论文、视频转写、个人草稿等多种来源。
+
+版式：
+
+```markdown
+标题
+
+来源：
+- 主来源：https://...
+- 关联来源：https://...
+- 截图/OCR：<一句话说明图片文字来源>
+
+正文第一段...
+```
+
+处理顺序：
+
+1. 选主来源。信息最完整、事实最多、可验证性最高的材料作为主来源。
+2. 给其他来源定角色。X/Twitter 通常提供观点或传播语境，截图/OCR 通常提供现场证据，GitHub/论文/文档通常提供事实依据。
+3. 统一事实边界。主来源没写、其他来源也不能支持的内容，不写成结论。
+4. 单列不确定信息。图片看不清、链接打不开、来源只出现转述时，明确写“不确定”。
+5. 正文按主来源展开，其余来源只在相关段落里辅助说明。
+
+写法：
+
+- 不把多个来源平均分段介绍，文章会散。
+- 不把 X/Twitter 的短观点写成作者完整方法论。
+- 不把 OCR 里的片段当成完整结论。
+- 如果 GitHub 和文章都出现，以仓库 README 或官方文档作为项目事实来源，以文章作为解读来源。
+- 如果用户给的是发布草稿，来源列表可以保留在开头；如果用户给的是个人备忘录，来源可以更紧凑。
+
+## 匿名虚构短例
+
+以下例子只示范格式，不对应用户真实备忘录。
+
+### GitHub 项目短例
+
+输入素材：
+
+```text
+GitHub：https://github.com/example/local-agent-cache
+README 摘要：Local Agent Cache 是一个本地缓存层，用 SQLite 保存 Agent 工具调用结果，支持 TTL、命名空间和 JSON 导出。安装命令是 npm install -g local-agent-cache。License: MIT。
+```
+
+输出风格：
+
+```markdown
+Local Agent Cache：给 Agent 工具调用加一层本地记忆
+
+GitHub：https://github.com/example/local-agent-cache
+
+Local Agent Cache 是一个面向 Agent 工作流的本地缓存工具，核心作用是把工具调用结果保存到 SQLite 里，避免同一批查询、检索和分析在短时间内反复执行。README 里能确认的能力包括 TTL、命名空间和 JSON 导出，这说明它不是单纯的日志记录，而是更接近一层可控的本地结果缓存。
+
+这类工具解决的是 Agent 使用成本和重复劳动问题。一次网页检索、一次仓库扫描、一次 API 查询，结果往往在一个任务周期里会被多次复用。如果每次都重新请求，不只是慢，也会浪费额度。它把这些结果放在本地 SQLite 中，开发者既能按命名空间区分项目，也能通过 TTL 控制缓存有效期。
+
+安装方式很直接，README 给的是 `npm install -g local-agent-cache`。客观信息上，项目使用 MIT License。素材里没有看到服务端同步、权限模型或加密存储说明，所以这些能力不能写成已有特性。
+```
+
+### X 推文短例
+
+输入素材：
+
+```text
+X：https://x.com/exampledev/status/100
+推文：The next frontier for coding agents is not more code generation. It is knowing when to stop, when to delete, and when to ask for evidence.
+可见数据：1.2K likes，发布时间 2026-07-01。
+```
+
+输出风格：
+
+```markdown
+Coding Agent 的下一道题：不是写更多，而是知道何时停止
+
+来源：https://x.com/exampledev/status/100
+
+这条 2026 年 7 月 1 日的 X 推文获得了 1.2K likes，讨论的是 Coding Agent 进入深水区后的一个真实变化：模型会写代码已经不是稀缺能力，真正稀缺的是工程判断。作者把问题压缩成三个动作：什么时候停止，什么时候删除，什么时候要求证据。
+
+这个判断有现实背景。很多 Agent 在处理需求时天然倾向于增加内容：新文件、新分支、新判断、新说明。短任务里这会显得很快，长期维护时却会把项目推向复杂化。会删除、会停止、会要求证据，意味着 Agent 不只是执行者，还要能理解项目的边界。
+
+这条推文没有展开具体方案，所以不能把它写成一套完整方法论。它更像一个方向提醒：下一阶段的 AI 编程工具，评价标准会从“能不能生成”转向“能不能克制地修改”。
+```
+
+### 混合 OCR 短例
+
+输入素材：
+
+```text
+公众号：https://mp.weixin.qq.com/s/example-agent-audit
+X：https://x.com/examplelab/status/200
+截图 OCR：
+Agent audit log
+- tool routing
+- state persistence
+- failure recovery
+右下角一行看不清，疑似 human approval
+```
+
+输出风格：
+
+```markdown
+Agent 工程化的关键，不只在工具多，而在过程可追踪
+
+来源：
+- 主来源：https://mp.weixin.qq.com/s/example-agent-audit
+- 关联来源：https://x.com/examplelab/status/200
+- 截图/OCR：一张关于 Agent audit log 的流程截图
+
+这组素材共同指向一个问题：Agent 系统开始从“能调用工具”进入“能被管理”的阶段。公众号链接是主来源，适合作为文章主线；X 链接更像观点语境；截图 OCR 则提供了几个关键词，包括 tool routing、state persistence 和 failure recovery。
+
+这几个词放在一起，说明讨论重点不是单个工具能力，而是 Agent 执行过程能不能留下证据。tool routing 关心工具怎么选，state persistence 关心状态怎么保留，failure recovery 关心失败后怎么恢复。如果这些环节没有记录，Agent 表面上完成了任务，团队也很难判断它为什么这么做。
+
+截图右下角一行看不清，只能写“疑似 human approval”，不能把它当成明确结论。这个边界要留住，因为混合素材最容易出问题的地方，就是把截图里的模糊文字写成确定事实。
+```
 
 ## 避免的写法
 

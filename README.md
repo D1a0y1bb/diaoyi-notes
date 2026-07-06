@@ -32,7 +32,7 @@ diaoyi-notes/
 ```
 
 `SKILL.md` 是入口，定义触发场景、事实约束和工作流程。  
-`references/writing-formats.md` 保存四类细分格式：公众号版、GitHub 版、X 推文版、图片文字版。
+`references/writing-formats.md` 保存五类细分格式：公众号版、GitHub 版、X 推文版、图片文字版、混合素材版。
 
 ## 安装
 
